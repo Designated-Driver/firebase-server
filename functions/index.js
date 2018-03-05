@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-var serviceAccount = require('../service.json');
+var serviceAccount = require('./service.json');
 var config = {
   apiKey: "AIzaSyCNtTlfQ0rbHqcrKCCuOJL9l8AuzPXx_58",
   credential: admin.credential.cert(serviceAccount),
@@ -41,12 +41,14 @@ exports.requestRide = functions.https.onRequest((request, response) => {
 });
 
 exports.sendMessage = functions.https.onRequest((request, response) => {
+  var registrationToken = request.query.registrationToken
 
-  var registrationToken = "cnW-HGCJanY:APA91bEQqpY8Y4fr_RY_8aVsNbnZBbJ4XxIx3mu-f-rpDuP1V0eDEN8IOcrBpEo4gqOZoNaxfgCEoa5bgUd9o4egCnBYTTOhpPxN3M4-eS4jcH6Rot9-M0rlc9F0oXRlp3hS4iKokSvQ"
   var message = {
     notification: {
       title: 'Ride Requested',
-      body: 'Would you like to respond to this ride?'
+      body: 'Would you like to respond to this ride?',
+      click_action: "/",
+      icon: 'https://raw.githubusercontent.com/Designated-Driver/client/master/static/img/icons/msapplication-icon-144x144.png',
     }
   };
   
